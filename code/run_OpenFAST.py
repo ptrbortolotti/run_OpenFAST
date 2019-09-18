@@ -17,7 +17,7 @@ if __name__=="__main__":
     iec.init_cond[("ElastoDyn","RotSpeed")] = {'U':[3., 5., 7., 8.2, 25.]}
     iec.init_cond[("ElastoDyn","RotSpeed")]['val'] = [2.92, 4.88, 6.81, 7.835, 7.88]
     iec.init_cond[("ElastoDyn","BlPitch1")] = {'U':[3., 8.2,  9., 11.,  13.,  15.,  17., 19., 21., 23., 25]}
-    iec.init_cond[("ElastoDyn","BlPitch1")]['val'] = [ 0., 0., 2.92640004, 8.75742434, 12.01120293, 14.81811261, 17.36712406 19.73108538 21.95916098 24.07809544 26.1020358 ]
+    iec.init_cond[("ElastoDyn","BlPitch1")]['val'] = [0., 0., 2.93, 8.76, 12.01, 14.82, 17.37, 19.73, 21.96, 24.08, 26.10]
     iec.init_cond[("ElastoDyn","BlPitch2")] = iec.init_cond[("ElastoDyn","BlPitch1")]
     iec.init_cond[("ElastoDyn","BlPitch3")] = iec.init_cond[("ElastoDyn","BlPitch1")]
     
