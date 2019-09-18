@@ -25,7 +25,7 @@ if __name__=="__main__":
     iec.dlc_inputs = {}
     iec.dlc_inputs['DLC']   = [1.1, 1.3, 1.4, 1.5]
     iec.dlc_inputs['U']     = [[3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25], [3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25],[6.2, 8.2, 10.2],[3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
-    iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]]
+    iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], []]
     iec.dlc_inputs['Yaw']   = [[], []]
 
     iec.transient_dir_change        = 'both'  # '+','-','both': sign for transient events in EDC, EWS
