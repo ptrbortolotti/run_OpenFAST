@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --account=WindSE
+#SBATCH --account=bar
 #SBATCH --time=0-04:00:00
 #SBATCH --job-name=dlc_bar005a
 #SBATCH --nodes=1
