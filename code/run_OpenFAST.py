@@ -3,7 +3,7 @@ from wisdem.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
 
 if __name__=="__main__":
     
-    eagle = True
+    eagle = False
     
     iec = CaseGen_IEC()
     iec.Turbine_Class = 'III' # I, II, III, IV
@@ -26,6 +26,8 @@ if __name__=="__main__":
     iec.dlc_inputs['DLC']   = [1.1, 1.3, 1.4, 1.5]
     iec.dlc_inputs['U']     = [[3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25], [3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25],[6.2, 8.2, 10.2],[3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
     iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], []]
+    iec.dlc_inputs['Seeds'] = [[], []]  
+    
     iec.dlc_inputs['Yaw']   = [[], []]
 
     iec.transient_dir_change        = 'both'  # '+','-','both': sign for transient events in EDC, EWS
@@ -39,7 +41,7 @@ if __name__=="__main__":
         iec.cores = 36
     else:
         iec.Turbsim_exe = '/mnt/c/Material/Programs/TurbSim/TurbSim_glin64'
-        iec.cores = 4
+        iec.cores = 1
     
     iec.debug_level = 2
     iec.parallel_windfile_gen = True
