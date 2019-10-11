@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --account=bar
+#SBATCH --account=windse
 #SBATCH --time=0-04:00:00
-#SBATCH --job-name=dlc_bar00
+#SBATCH --job-name=dlc_iea
 #SBATCH --nodes=1
 #SBATCH --ntasks=36
 #SBATCH --mail-user pbortolo@nrel.gov
@@ -16,4 +16,4 @@ module load gcc/8.2.0
 source deactivate
 source activate wisdem-env
 
-python run_OpenFAST.py
+python run_OpenFAST_IEA15.py
