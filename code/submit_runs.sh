@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=bar
 #SBATCH --time=0-04:00:00
-#SBATCH --job-name=dlc_bar005a
+#SBATCH --job-name=dlc_bar00
 #SBATCH --nodes=1
 #SBATCH --ntasks=36
 #SBATCH --mail-user pbortolo@nrel.gov
