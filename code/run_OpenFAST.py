@@ -34,7 +34,7 @@ if __name__=="__main__":
 
     # Naming, file management, etc
     iec.wind_dir = 'outputs/wind'
-    iec.case_name_base = 'testing'
+    iec.case_name_base = 'BAR006'
     if eagle:
         iec.Turbsim_exe = '/projects/windse/importance_sampling/WT_Codes/Turbsim/TurbSim/bin/TurbSim_glin64'
         iec.cores = 36
@@ -55,12 +55,12 @@ if __name__=="__main__":
     fastBatch = runFAST_pywrapper_batch(FAST_ver='OpenFAST',dev_branch = True)
     if eagle:
         fastBatch.FAST_exe = '/home/pbortolo/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'RotorSE_FAST_BAR_005a.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/OpenFAST_BAR005a'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_006.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/models_OpenFAST/BAR_00'   # Path to fst directory files
     else:
         fastBatch.FAST_exe = '/mnt/c/Material/Programs/openfast/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'RotorSE_FAST_BAR_005a.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/mnt/c/Material/Projects/RefTurbines/BAR/OpenFAST_BAR005a'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_006.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/mnt/c/Material/Projects/RefTurbines/models_OpenFAST/BAR_00'   # Path to fst directory files
     fastBatch.FAST_runDirectory = iec.run_dir
     fastBatch.case_list = case_list
     fastBatch.case_name_list = case_name_list
