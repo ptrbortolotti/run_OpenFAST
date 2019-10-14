@@ -3,7 +3,7 @@ from wisdem.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
 
 if __name__=="__main__":
     
-    eagle = True
+    eagle = False
     
     iec = CaseGen_IEC()
     iec.Turbine_Class = 'III' # I, II, III, IV

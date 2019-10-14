@@ -1,5 +1,6 @@
 from wisdem.aeroelasticse.runFAST_pywrapper import runFAST_pywrapper, runFAST_pywrapper_batch
 from wisdem.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
+from shutil import copyfile
 
 if __name__=="__main__":
     
@@ -55,16 +56,19 @@ if __name__=="__main__":
     fastBatch = runFAST_pywrapper_batch(FAST_ver='OpenFAST',dev_branch = True)
     if eagle:
         fastBatch.FAST_exe = '/home/pbortolo/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'NREL15mw_OpenFAST_prelim_v4.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/IEA-15-240-RWT/OpenFAST/NREL15mw_OpenFAST_prelim_v4'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'IEA-15-240-RWT.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/IEA-15-240-RWT/OpenFAST'   # Path to fst directory files
     else:
         fastBatch.FAST_exe = '/mnt/c/Material/Programs/openfast/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'NREL15mw_OpenFAST_prelim_v4.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/mnt/c/Material/Projects/IEATask37/IEA-15-240-RWT/OpenFAST/NREL15mw_OpenFAST_prelim_v4'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'IEA-15-240-RWT.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/mnt/c/Material/Projects/IEATask37/IEA-15-240-RWT/OpenFAST'   # Path to fst directory files
     fastBatch.FAST_runDirectory = iec.run_dir
     fastBatch.case_list = case_list
     fastBatch.case_name_list = case_name_list
     fastBatch.debug_level = 2
+    
+    copyfile(fastBatch.FAST_directory + '/DISCON.IN',    iec.run_dir + '/DISCON.IN')
+    copyfile(fastBatch.FAST_directory + '/Cp_Ct_Cq.txt', iec.run_dir + '/Cp_Ct_Cq.txt')
     
     if eagle:
         fastBatch.run_multi(36)
