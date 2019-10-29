@@ -3,7 +3,7 @@ from wisdem.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
 
 if __name__=="__main__":
     
-    eagle = False
+    eagle = True
     
     iec = CaseGen_IEC()
     iec.Turbine_Class = 'III' # I, II, III, IV
@@ -34,7 +34,7 @@ if __name__=="__main__":
 
     # Naming, file management, etc
     iec.wind_dir = 'outputs/wind'
-    iec.case_name_base = 'BAR006'
+    iec.case_name_base = 'BAR007'
     if eagle:
         iec.Turbsim_exe = '/projects/windse/importance_sampling/WT_Codes/Turbsim/TurbSim/bin/TurbSim_glin64'
         iec.cores = 36
@@ -55,11 +55,11 @@ if __name__=="__main__":
     fastBatch = runFAST_pywrapper_batch(FAST_ver='OpenFAST',dev_branch = True)
     if eagle:
         fastBatch.FAST_exe = '/home/pbortolo/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'OpenFAST_BAR_006.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_00.fst'   # FAST input file (ext=.fst)
         fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/models_OpenFAST/BAR_00'   # Path to fst directory files
     else:
         fastBatch.FAST_exe = '/mnt/c/Material/Programs/openfast/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'OpenFAST_BAR_006.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_00.fst'   # FAST input file (ext=.fst)
         fastBatch.FAST_directory = '/mnt/c/Material/Projects/RefTurbines/models_OpenFAST/BAR_00'   # Path to fst directory files
     fastBatch.FAST_runDirectory = iec.run_dir
     fastBatch.case_list = case_list
