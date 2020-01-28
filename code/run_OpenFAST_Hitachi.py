@@ -25,12 +25,12 @@ if __name__=="__main__":
     
     # DLC inputs
     iec.dlc_inputs = {}
-    iec.dlc_inputs['DLC']   = [1.1]
-    iec.dlc_inputs['U']     = [[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
-    iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6]]
-    #iec.dlc_inputs['DLC']   = [1.1, 1.3, 1.4, 1.5]
-    #iec.dlc_inputs['U']     = [[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25], [4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25],[6.2, 8.2, 10.2],[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
-    #iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], []]
+    #iec.dlc_inputs['DLC']   = [1.1]
+    #iec.dlc_inputs['U']     = [[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
+    #iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6]]
+    iec.dlc_inputs['DLC']   = [1.1, 1.3, 1.4, 1.5]
+    iec.dlc_inputs['U']     = [[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25], [4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25],[8., 10., 12.],[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
+    iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], []]
     iec.dlc_inputs['Yaw']   = [[]]
 
     iec.transient_dir_change        = 'both'  # '+','-','both': sign for transient events in EDC, EWS
@@ -48,7 +48,7 @@ if __name__=="__main__":
     
     iec.debug_level = 2
     iec.parallel_windfile_gen = True
-    iec.run_dir = 'outputs/200114_baseline_up'
+    iec.run_dir = 'outputs/200128_baseline_up'
 
     # Run case generator / wind file writing
     case_inputs = {}
