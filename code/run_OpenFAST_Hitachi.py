@@ -43,7 +43,7 @@ if __name__=="__main__":
         iec.Turbsim_exe = '/projects/windse/importance_sampling/WT_Codes/Turbsim/TurbSim/bin/TurbSim_glin64'
         iec.cores = 36
     else:
-        iec.Turbsim_exe = '/mnt/c/Material/Programs/TurbSim/TurbSim_glin64'
+        iec.Turbsim_exe = "/Users/pbortolo/work/2_openfast/TurbSim/bin/TurbSim_glin64"
         iec.cores = 1
     
     iec.debug_level = 2
@@ -62,11 +62,9 @@ if __name__=="__main__":
         fastBatch.FAST_InputFile = 'Baseline_Hit10MW.fst'   # FAST input file (ext=.fst)
         fastBatch.FAST_directory = '/projects/windse/hitachi/Hitachi_Design/OpenFAST/Baseline_Hit10MW_upwind'   # Path to fst directory files
     else:
-        fastBatch.FAST_exe = '/mnt/c/GitHub/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
+        fastBatch.FAST_exe = '/Users/pbortolo/work/2_openfast/openfast/build/glue-codes/openfast/openfast'   # Path to executable
         fastBatch.FAST_InputFile = 'Baseline_Hit10MW.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/mnt/c/GitHub/Hitachi_Design/OpenFAST/Baseline_Hit10MW/'   # Path to fst directory files
-    shutil.copyfile(fastBatch.FAST_directory + '/DISCON.IN',iec.run_dir + '/DISCON.IN')
-    shutil.copyfile(fastBatch.FAST_directory + '/Cp_Ct_Cq_Hit10MW_v14.txt',iec.run_dir + '/Cp_Ct_Cq_Hit10MW_v14.txt')
+        fastBatch.FAST_directory = '/Users/pbortolo/work/3_projects/1_Hitachi/Hitachi_Design/OpenFAST/Baseline_Hit10MW/'   # Path to fst directory files
     fastBatch.FAST_runDirectory = iec.run_dir
     fastBatch.case_list = case_list
     fastBatch.case_name_list = case_name_list
