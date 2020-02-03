@@ -12,6 +12,7 @@ if __name__=="__main__":
     iec.Turbulence_Class = 'A'
     iec.D = 204.
     iec.z_hub = 131.5
+    iec.overwrite = False
     
     # adjust later
     # Turbine Data
@@ -31,7 +32,7 @@ if __name__=="__main__":
     iec.dlc_inputs['DLC']   = [1.1, 1.3, 1.4, 1.5]
     iec.dlc_inputs['U']     = [[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25], [4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25],[8., 10., 12.],[4., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25]]
     iec.dlc_inputs['Seeds'] = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], []]
-    iec.dlc_inputs['Yaw']   = [[]]
+    iec.dlc_inputs['Yaw']   = [[],[],[],[]]
 
     iec.transient_dir_change        = 'both'  # '+','-','both': sign for transient events in EDC, EWS
     iec.transient_shear_orientation = 'both'  # 'v','h','both': vertical or horizontal shear for EWS
@@ -48,7 +49,7 @@ if __name__=="__main__":
     
     iec.debug_level = 2
     iec.parallel_windfile_gen = True
-    iec.run_dir = 'outputs/200128_baseline_up'
+    iec.run_dir = 'outputs/200202_baseline_down'
 
     # Run case generator / wind file writing
     case_inputs = {}
@@ -60,7 +61,7 @@ if __name__=="__main__":
     if eagle:
         fastBatch.FAST_exe = '/projects/windse/hitachi/openfast/build/glue-codes/openfast/openfast'   # Path to executable
         fastBatch.FAST_InputFile = 'Baseline_Hit10MW.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/projects/windse/hitachi/Hitachi_Design/OpenFAST/Baseline_Hit10MW_upwind'   # Path to fst directory files
+        fastBatch.FAST_directory = '/projects/windse/hitachi/Hitachi_Design/OpenFAST/Baseline_Hit10MW'   # Path to fst directory files
     else:
         fastBatch.FAST_exe = '/Users/pbortolo/work/2_openfast/openfast/build/glue-codes/openfast/openfast'   # Path to executable
         fastBatch.FAST_InputFile = 'Baseline_Hit10MW.fst'   # FAST input file (ext=.fst)
