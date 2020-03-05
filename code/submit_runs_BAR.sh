@@ -14,6 +14,6 @@ module load mkl/2019.1.144 cmake/3.12.3
 module load gcc/8.2.0
 
 source deactivate
-source activate wisdem-env
+conda activate wisdem-env
 
 python run_OpenFAST_BAR.py
