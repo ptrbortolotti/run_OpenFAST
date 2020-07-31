@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=bar
-#SBATCH --time=0-24:00:00
-#SBATCH --job-name=bar02
+#SBATCH --time=2-00:00:00
+#SBATCH --job-name=bar00
 #SBATCH --nodes=7
 #SBATCH --mail-user pbortolo@nrel.gov
 #SBATCH --mail-type BEGIN,END,FAIL
@@ -18,4 +18,4 @@ module load gcc/8.2.0
 source deactivate
 conda activate wisdem-env
 
-mpirun -np 250 python run_OpenFAST_BAR02.py
+mpirun -np 250 python run_OpenFAST_BAR00.py

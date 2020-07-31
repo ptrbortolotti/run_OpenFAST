@@ -4,7 +4,7 @@ from wisdem.commonse.mpi_tools              import MPI
 import sys
 if MPI:
     from wisdem.commonse.mpi_tools import map_comm_heirarchical, subprocessor_loop, subprocessor_stop
-    comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 246)
+    comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 198)
 
 eagle = True
 
