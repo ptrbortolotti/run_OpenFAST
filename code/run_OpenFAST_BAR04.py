@@ -47,7 +47,7 @@ iec.transient_shear_orientation = 'both'  # 'v','h','both': vertical or horizont
 
 # Naming, file management, etc
 iec.wind_dir = 'outputs/wind'
-iec.case_name_base = 'BAR00'
+iec.case_name_base = 'BAR04'
 if eagle:
     iec.Turbsim_exe = '/projects/windse/importance_sampling/WT_Codes/Turbsim/TurbSim/bin/TurbSim_glin64'
     iec.cores = 36
@@ -66,14 +66,14 @@ if MPI:
 else:
     iec.parallel_windfile_gen = False
     iec.mpi_run               = False
-iec.run_dir = 'outputs/OpenFAST_BAR00'
+iec.run_dir = 'outputs/OpenFAST_BAR04'
 
 # Run case generator / wind file writing
 case_inputs = {}
 case_inputs[('Fst','OutFileFmt')]        = {'vals':[2], 'group':0}
 case_inputs[("Fst","CompHydro")]         = {'vals':[0], 'group':0}
 case_inputs[("Fst","CompSub")]           = {'vals':[0], 'group':0}
-case_inputs[("Fst","DT")]                = {'vals':[0.0001], 'group':0}
+case_inputs[("Fst","DT")]                = {'vals':[0.01], 'group':0}
 case_inputs[("Fst","DT_Out")]            = {'vals':[0.2], 'group':0}
 case_inputs[("Fst","TMax")]              = {'vals':[TMax], 'group':0}
 case_inputs[("Fst","TStart")]            = {'vals':[TStart], 'group':0}
@@ -93,7 +93,7 @@ case_inputs[("ElastoDyn","EdgeDOF")]     = {'vals':["True"], 'group':0}
 case_inputs[("ElastoDyn","DrTrDOF")]     = {'vals':["False"], 'group':0}
 case_inputs[("ElastoDyn","GenDOF")]      = {'vals':["True"], 'group':0}
 case_inputs[("ElastoDyn","YawDOF")]      = {'vals':["False"], 'group':0}
-case_inputs[("Fst","CompElast")]         = {'vals':[2], 'group':0}
+case_inputs[("Fst","CompElast")]         = {'vals':[1], 'group':0}
 case_inputs[("AeroDyn15","WakeMod")]     = {'vals':[1], 'group':0}
 case_inputs[("AeroDyn15","DBEMT_Mod")]   = {'vals':[1], 'group':0}
 case_inputs[("AeroDyn15","tau1_const")]  = {'vals':[20], 'group':0}
@@ -124,12 +124,12 @@ if rank == 0:
     fastBatch = runFAST_pywrapper_batch(FAST_ver='OpenFAST',dev_branch = True)
     if eagle:
         fastBatch.FAST_exe = '/home/pbortolo/wisdem_1_0_0/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'OpenFAST_BAR_00.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/BAR/OpenFAST_Models/BAR_00'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_04.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/BAR/OpenFAST_Models/BAR_04'   # Path to fst directory files
     else:
         fastBatch.FAST_exe = '/Users/pbortolo/work/2_openfast/openfast/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'OpenFAST_BAR_00.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/Users/pbortolo/work/2_openfast/BAR/OpenFAST_Models/BAR_00'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_04.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/Users/pbortolo/work/2_openfast/BAR/OpenFAST_Models/BAR_04'   # Path to fst directory files
     fastBatch.FAST_runDirectory = iec.run_dir
     fastBatch.case_list = case_list
     fastBatch.case_name_list = case_name_list

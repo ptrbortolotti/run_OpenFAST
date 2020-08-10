@@ -2,11 +2,16 @@ from wisdem.aeroelasticse.runFAST_pywrapper import runFAST_pywrapper, runFAST_py
 from wisdem.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
 from wisdem.commonse.mpi_tools              import MPI
 import sys
-if MPI:
-    from wisdem.commonse.mpi_tools import map_comm_heirarchical, subprocessor_loop, subprocessor_stop
-    comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 198)
 
 eagle = True
+
+if MPI:
+    from wisdem.commonse.mpi_tools import map_comm_heirarchical, subprocessor_loop, subprocessor_stop
+    if eagle:
+        comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 198)
+    else:
+        comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 3)
+
 
 iec = CaseGen_IEC()
 iec.Turbine_Class = 'III' # I, II, III, IV
@@ -16,7 +21,7 @@ iec.z_hub = 140.
 TMax   = 720.
 Vrated = 8.3
 Ttrans = TMax - 60.
-TStart = TMax - 600.
+TStart = max([0., TMax - 600.])
 
 # Turbine Data
 iec.init_cond = {} # can leave as {} if data not available
@@ -48,12 +53,19 @@ if eagle:
     iec.cores = 36
 else:
     iec.Turbsim_exe = '/Users/pbortolo/work/2_openfast/TurbSim/bin/TurbSim_glin64'
-    iec.cores = 1
+    if MPI:
+        iec.cores = 4
+    else:
+        iec.cores = 1
 
 iec.debug_level = 2
-iec.parallel_windfile_gen = True
-iec.mpi_run               = True
-iec.comm_map_down         = comm_map_down
+if MPI:
+    iec.parallel_windfile_gen = True
+    iec.mpi_run               = True
+    iec.comm_map_down         = comm_map_down
+else:
+    iec.parallel_windfile_gen = False
+    iec.mpi_run               = False
 iec.run_dir = 'outputs/OpenFAST_BAR01'
 
 # Run case generator / wind file writing
@@ -99,8 +111,11 @@ case_inputs[("AeroDyn15","UseBlCm")]     = {'vals':['True'], 'group':0}
 
 
 # Parallel wind file generation with MPI
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
+if MPI:
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+else:
+    rank = 0
 if rank == 0:
     case_list, case_name_list, dlc_list = iec.execute(case_inputs=case_inputs)
 
@@ -120,18 +135,19 @@ if rank == 0:
     fastBatch.case_name_list = case_name_list
     fastBatch.debug_level = 2
 
-    if eagle:
+    if MPI:
         fastBatch.run_mpi(comm_map_down)
     else:
         fastBatch.run_serial()
-    
-sys.stdout.flush()
-if rank in comm_map_up.keys():
-    subprocessor_loop(comm_map_up)
-sys.stdout.flush()
+
+if MPI:
+    sys.stdout.flush()
+    if rank in comm_map_up.keys():
+        subprocessor_loop(comm_map_up)
+    sys.stdout.flush()
 
 # close signal to subprocessors
-if rank == 0:
+if rank == 0 and MPI:
     subprocessor_stop(comm_map_down)
 sys.stdout.flush()
     
