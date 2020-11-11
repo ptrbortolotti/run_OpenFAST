@@ -1,15 +1,15 @@
-from wisdem.aeroelasticse.runFAST_pywrapper import runFAST_pywrapper_batch
-from wisdem.aeroelasticse.CaseGen_General import CaseGen_General
+from weis.aeroelasticse.runFAST_pywrapper import runFAST_pywrapper_batch
+from weis.aeroelasticse.CaseGen_General import CaseGen_General
 import numpy as np
 
 fastBatch = runFAST_pywrapper_batch(FAST_ver='OpenFAST', dev_branch=True)
 
-eagle =  False
+eagle =  True
 
 if eagle:
-    fastBatch.FAST_exe = '/home/pbortolo/openfast/build/glue-codes/openfast/openfast'   # Path to executable
-    fastBatch.FAST_InputFile = 'OpenFAST_BAR_00.fst'   # FAST input file (ext=.fst)
-    fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/BAR/OpenFAST_Models/BAR_00'   # Path to fst directory files
+    fastBatch.FAST_exe = '/home/pbortolo/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
+    fastBatch.FAST_InputFile = 'BAR0.fst'   # FAST input file (ext=.fst)
+    fastBatch.FAST_directory = '/home/pbortolo/BAR_Designs/BAR0/OpenFAST'   # Path to fst directory files
 else:
     fastBatch.FAST_exe = '/Users/pbortolo/work/2_openfast/linearization/openfast/build/glue-codes/openfast/openfast'   # Path to executable
     fastBatch.FAST_InputFile = 'OpenFAST_BAR_00.fst'   # FAST input file (ext=.fst)

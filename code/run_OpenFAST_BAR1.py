@@ -1,5 +1,5 @@
-from wisdem.aeroelasticse.runFAST_pywrapper import runFAST_pywrapper, runFAST_pywrapper_batch
-from wisdem.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
+from weis.aeroelasticse.runFAST_pywrapper import runFAST_pywrapper, runFAST_pywrapper_batch
+from weis.aeroelasticse.CaseGen_IEC       import CaseGen_IEC
 from wisdem.commonse.mpi_tools              import MPI
 import sys
 
@@ -8,7 +8,7 @@ eagle = True
 if MPI:
     from wisdem.commonse.mpi_tools import map_comm_heirarchical, subprocessor_loop, subprocessor_stop
     if eagle:
-        comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 246)
+        comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 198)
     else:
         comm_map_down, comm_map_up, color_map = map_comm_heirarchical(1, 3)
 
@@ -35,7 +35,7 @@ iec.init_cond[("ElastoDyn","BlPitch3")] = iec.init_cond[("ElastoDyn","BlPitch1")
 # DLC inputs
 iec.dlc_inputs = {}
 iec.dlc_inputs['DLC']   = [1.1, 1.3, 1.4, 1.5, 5.1, 6.1, 6.3]
-iec.dlc_inputs['U']     = [[3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25.], [3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25.],[Vrated - 2., Vrated, Vrated + 2.],[3., 5., 7., 9., 11., 13., 15., 17., 19., 21., 23., 25.], [Vrated - 2., Vrated, Vrated + 2., 25.], [], []]
+iec.dlc_inputs['U']     = [[3., 5., 7., 9., 11., 13., 15., 17., 19.], [3., 5., 7., 9., 11., 13., 15., 17., 19.],[Vrated - 2., Vrated, Vrated + 2.],[3., 5., 7., 9., 11., 13., 15., 17., 19.], [Vrated - 2., Vrated, Vrated + 2., 19.], [], []]
 iec.dlc_inputs['Seeds'] = [range(1,7), range(1,7),[],[], range(1,7), range(1,7), range(1,7)]
 iec.dlc_inputs['Yaw']   = [[], [], [], [], [], [], []]
 iec.PC_MaxRat           = 2.
@@ -47,10 +47,10 @@ iec.transient_shear_orientation = 'both'  # 'v','h','both': vertical or horizont
 
 # Naming, file management, etc
 iec.wind_dir = 'outputs/wind'
-iec.case_name_base = 'BAR04'
+iec.case_name_base = 'BAR1'
 if eagle:
-    iec.Turbsim_exe = '/projects/windse/importance_sampling/WT_Codes/Turbsim/TurbSim/bin/TurbSim_glin64'
-    iec.cores = 36
+    iec.Turbsim_exe = '/projects/weis/multifidelity/WEIS/local/bin/turbsim'
+    iec.cores = 198
 else:
     iec.Turbsim_exe = '/Users/pbortolo/work/2_openfast/TurbSim/bin/TurbSim_glin64'
     if MPI:
@@ -66,14 +66,14 @@ if MPI:
 else:
     iec.parallel_windfile_gen = False
     iec.mpi_run               = False
-iec.run_dir = 'outputs/OpenFAST_BAR04'
+iec.run_dir = 'outputs/OpenFAST_BAR1'
 
 # Run case generator / wind file writing
 case_inputs = {}
 case_inputs[('Fst','OutFileFmt')]        = {'vals':[2], 'group':0}
 case_inputs[("Fst","CompHydro")]         = {'vals':[0], 'group':0}
 case_inputs[("Fst","CompSub")]           = {'vals':[0], 'group':0}
-case_inputs[("Fst","DT")]                = {'vals':[0.01], 'group':0}
+case_inputs[("Fst","DT")]                = {'vals':[0.0002], 'group':0}
 case_inputs[("Fst","DT_Out")]            = {'vals':[0.2], 'group':0}
 case_inputs[("Fst","TMax")]              = {'vals':[TMax], 'group':0}
 case_inputs[("Fst","TStart")]            = {'vals':[TStart], 'group':0}
@@ -93,7 +93,7 @@ case_inputs[("ElastoDyn","EdgeDOF")]     = {'vals':["True"], 'group':0}
 case_inputs[("ElastoDyn","DrTrDOF")]     = {'vals':["False"], 'group':0}
 case_inputs[("ElastoDyn","GenDOF")]      = {'vals':["True"], 'group':0}
 case_inputs[("ElastoDyn","YawDOF")]      = {'vals':["False"], 'group':0}
-case_inputs[("Fst","CompElast")]         = {'vals':[1], 'group':0}
+case_inputs[("Fst","CompElast")]         = {'vals':[2], 'group':0}
 case_inputs[("AeroDyn15","WakeMod")]     = {'vals':[1], 'group':0}
 case_inputs[("AeroDyn15","DBEMT_Mod")]   = {'vals':[1], 'group':0}
 case_inputs[("AeroDyn15","tau1_const")]  = {'vals':[20], 'group':0}
@@ -109,7 +109,6 @@ case_inputs[("AeroDyn15","AIDrag")]      = {'vals':['True'], 'group':0}
 case_inputs[("AeroDyn15","TIDrag")]      = {'vals':['True'], 'group':0}
 case_inputs[("AeroDyn15","UseBlCm")]     = {'vals':['True'], 'group':0}
 
-
 # Parallel wind file generation with MPI
 if MPI:
     comm = MPI.COMM_WORLD
@@ -123,13 +122,13 @@ if rank == 0:
     # Run FAST cases
     fastBatch = runFAST_pywrapper_batch(FAST_ver='OpenFAST',dev_branch = True)
     if eagle:
-        fastBatch.FAST_exe = '/home/pbortolo/wisdem_1_0_0/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'OpenFAST_BAR_04.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/home/pbortolo/wisdem_1_0_0/BAR/OpenFAST_Models/BAR_04'   # Path to fst directory files
+        fastBatch.FAST_exe = '/home/pbortolo/OpenFAST/build/glue-codes/openfast/openfast'   # Path to executable
+        fastBatch.FAST_InputFile = 'BAR1.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/home/pbortolo/BAR_Designs/BAR1/OpenFAST'   # Path to fst directory files
     else:
         fastBatch.FAST_exe = '/Users/pbortolo/work/2_openfast/openfast/build/glue-codes/openfast/openfast'   # Path to executable
-        fastBatch.FAST_InputFile = 'OpenFAST_BAR_04.fst'   # FAST input file (ext=.fst)
-        fastBatch.FAST_directory = '/Users/pbortolo/work/2_openfast/BAR/OpenFAST_Models/BAR_04'   # Path to fst directory files
+        fastBatch.FAST_InputFile = 'OpenFAST_BAR_01.fst'   # FAST input file (ext=.fst)
+        fastBatch.FAST_directory = '/Users/pbortolo/work/2_openfast/BAR/OpenFAST_Models/BAR_01'   # Path to fst directory files
     fastBatch.FAST_runDirectory = iec.run_dir
     fastBatch.case_list = case_list
     fastBatch.case_name_list = case_name_list
